@@ -1,0 +1,1 @@
+/home/eu/rust_learning/pngme/target/debug/pngme: /home/eu/rust_learning/pngme/src/args.rs /home/eu/rust_learning/pngme/src/chunk.rs /home/eu/rust_learning/pngme/src/chunk_type.rs /home/eu/rust_learning/pngme/src/commands.rs /home/eu/rust_learning/pngme/src/main.rs /home/eu/rust_learning/pngme/src/png.rs
