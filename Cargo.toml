@@ -1,5 +1,7 @@
 [package]
 name = "pngeu"
+author = "euds63"
+about = "an implementation of https://picklenerd.github.io/pngme_book/"
 version = "1.0.0"
 edition = "2021"
 

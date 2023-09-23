@@ -14,10 +14,11 @@ pub struct Chunk{
 impl Chunk {
     /// 新建一个crc实例
     const CRC_32: Crc<u32> = Crc::<u32>::new(&CRC_32_ISO_HDLC);
-    /// A 4-byte CRC (Cyclic Redundancy Check) calculated on the chunk type 
-    /// code and chunk data fields
+
+    /// A 4-byte CRC (Cyclic Redundancy Check) calculated on the 
+    /// chunk type code and chunk data fields
     fn crc_checksum(chunk_type: &ChunkType, data: &[u8]) -> u32 {
-        let bytes: Vec<_> = chunk_type
+        let bytes: Vec<u8> = chunk_type
             .bytes()
             .iter()
             .chain(data.iter())
@@ -104,7 +105,7 @@ impl TryFrom<&[u8]> for Chunk {
     fn try_from(value: &[u8]) -> Result<Self> {
         // 读取data_length
         let data_length_bytes = &value[0..4];
-        let data_length = u32::from_be_bytes(data_length_bytes.try_into().unwrap());
+        let data_length = u32::from_be_bytes(data_length_bytes.try_into()?);
 
         // 读取chunk_type  
         let chunk_type_code = &value[4..8];

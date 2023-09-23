@@ -1,15 +1,12 @@
 use std::convert::TryFrom;
 use std::fmt;
-use std::fs;
 use std::io::BufRead;
 use std::io::{BufReader, Read};
 use std::path::Path;
-use std::str::FromStr;
 
-use crate::chunk;
 use crate::{Error, Result};
 use crate::chunk::Chunk;
-use crate::chunk_type::ChunkType;
+
 
 #[derive(Debug)]
 pub struct Png {
@@ -150,7 +147,6 @@ mod tests {
     }
 
     fn chunk_from_strings(chunk_type: &str, data: &str) -> Result<Chunk> {
-        use std::str::FromStr;
 
         let chunk_type = ChunkType::from_str(chunk_type)?;
         let data: Vec<u8> = data.bytes().collect();

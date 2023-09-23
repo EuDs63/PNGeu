@@ -9,14 +9,20 @@ pub struct ChunkType {
 } 
 
 impl  ChunkType {
+    /// 检查是否为符合规定的byte（大小写字母）
     fn is_valid_byte(b:u8) -> bool {
         (65 <= b && b <= 90) || (97 <=b && b <= 122)
     }
 
     // Is the nth bit (from the right, *counting from 0*) zero?
-    fn is_zero_bit(bit:u8,n:u8) -> bool {
+    /// 0: return True; 1 :return False
+    fn is_zero_bit(bit:u8,n:u8) -> bool {       
+        // let mask = 0 << n;
+        // bit | mask == 0
+        // 上面代码的问题在于： 将0左移 n 位，仍然是0
         let mask = 1 << n;
-        bit & mask == 0
+        bit & mask == 0        
+
     }
     pub fn bytes(&self) -> [u8;4]{
         self.code
@@ -25,19 +31,19 @@ impl  ChunkType {
     fn is_valid(&self) -> bool{
        self.is_reserved_bit_valid() 
     }
-    // first byte : uppercase -> critical
+    /// first byte : uppercase -> critical
     fn is_critical(&self) -> bool{
         Self::is_zero_bit(self.code[0], 5)
     }
-    // second byte : uppercase -> public
+    /// second byte : uppercase -> public
     fn is_public(&self) -> bool{
         Self::is_zero_bit(self.code[1], 5)
     }
-    // third byte : uppercase
+    /// third byte : uppercase
     fn is_reserved_bit_valid(&self) -> bool{
         Self::is_zero_bit(self.code[2], 5)
     }
-    // fourth byte : uppercase -> unsafe
+    /// fourth byte : uppercase -> unsafe
     fn is_safe_to_copy(&self) -> bool{
         !Self::is_zero_bit(self.code[3], 5)
     }
@@ -94,7 +100,7 @@ impl FromStr for ChunkType {
 
         for (index,byte) in s.as_bytes().iter().enumerate(){
             if Self::is_valid_byte(*byte){
-                vec[index] = * byte;
+                vec[index] = *byte;
             }
             else 
             {

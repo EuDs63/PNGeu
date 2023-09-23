@@ -1,6 +1,5 @@
 use args::*;
 use clap::Parser;
-// use commands::encode;
 
 mod args;
 mod chunk;
